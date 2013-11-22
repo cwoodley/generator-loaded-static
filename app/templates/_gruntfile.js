@@ -67,6 +67,19 @@ module.exports = function(grunt) {
             files: ['./source/index.html'],
             tasks: ['inlinecss'],
         },
+        'string-replace': {
+            dist: {
+                files: {
+                  './source/index-inline.html': './source/index-inline.html'
+                },
+                options: {
+                  replacements: [{
+                    pattern: 'http://projects.loadedcommunications.com.au/<%= _.slugify(projectName) %>/',
+                    replacement: ''
+                  }]
+                }
+            }               
+        }
 
     });
 
@@ -79,10 +92,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-inline-css');
+    grunt.loadNpmTasks('grunt-string-replace');
 
     // Default task.
     grunt.registerTask('default', ['inlinecss','watch']);
 
     // Build for delivery
-    grunt.registerTask('build', ['clean','inlinecss', 'copy', 'imagemin','compress']);
+    grunt.registerTask('build', ['clean','inlinecss', 'string-replace', 'copy', 'imagemin', 'compress']);
 };

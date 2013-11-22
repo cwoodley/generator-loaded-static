@@ -10,7 +10,8 @@
     "grunt-contrib-compress": "~0.5.2",
     "grunt-contrib-imagemin": "~0.3.0",
     "grunt-inline-css": "~0.1.4",
-    "grunt-contrib-watch": "~0.5.3"
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-string-replace": "~0.2.7"
   },
   "author": "Loaded Communications"
 }
