@@ -54,13 +54,35 @@ module.exports = function(grunt) {
             ]
           }
         },
+        inlinecss: {
+            main: {
+                options: {
+                },
+                files: {
+                    './source/index-inline.html': './source/index.html'
+                }
+            }
+        },
+        watch: {
+            files: ['./source/index.html'],
+            tasks: ['inlinecss'],
+        },
 
     });
 
 
+    grunt.event.on('watch', function(action, filepath, target) {
+        grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
+    });
+
     grunt.loadNpmTasks('grunt-contrib');
     grunt.loadNpmTasks('grunt-contrib-compress');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-inline-css');
 
     // Default task.
-    grunt.registerTask('default', ['clean','copy', 'imagemin','compress']);
+    grunt.registerTask('default', ['inlinecss','watch']);
+
+    // Build for delivery
+    grunt.registerTask('build', ['clean','inlinecss', 'copy', 'imagemin','compress']);
 };
