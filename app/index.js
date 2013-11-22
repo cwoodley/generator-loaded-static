@@ -25,12 +25,12 @@ LoadedEdmGenerator.prototype.askFor = function askFor() {
 
   var prompts = [
   {
-    name: 'authorName',
-    message: 'Who created this project?'
-  },
-  {
     name: 'projectName',
     message: 'What is the name of this project?'
+  },
+  {
+    name: 'authorName',
+    message: 'Who created this project?'
   },
   {
     name: 'authorEmail',
@@ -59,8 +59,9 @@ LoadedEdmGenerator.prototype.app = function app() {
   this.mkdir('source/images');
 
   this.copy('gitignore', '.gitignore');
+  this.template('_package.json', 'package.json');
   this.copy('_gruntfile.js', 'Gruntfile.js');
-  this.copy('_package.json', 'package.json');
+  this.template('_index.html', './source/index.html');
 };
 
 LoadedEdmGenerator.prototype.git = function git() {

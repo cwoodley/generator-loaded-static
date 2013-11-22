@@ -1,5 +1,12 @@
 module.exports = function(grunt) {
+    var globalConfig = {
+        source: './source',
+        build: './build/source'
+    };
+
     grunt.initConfig({
+        pkg: require('./package.json'),
+        globalConfig: globalConfig,
         clean: {
             build: [
                 'build'
@@ -9,7 +16,7 @@ module.exports = function(grunt) {
             main: {
                 files: [{
                     expand: true,
-                    src: ['source/**'],
+                    src: ['<%= globalConfig.source %>/**','!source/index.html'],
                     dest: 'build/'
                 }]
             },
@@ -22,9 +29,9 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: './source/images/',
+                        cwd: '<%= globalConfig.source %>/images/',
                         src: ['**/*.png'],
-                        dest: './build/source/images/',
+                        dest: '<%= globalConfig.build %>/images/',
                         ext: '.png'
                     }
                 ]
@@ -36,9 +43,9 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: './source/images/',
+                        cwd: '<%= globalConfig.source %>/images/',
                         src: ['**/*.jpg'],
-                        dest: './build/source/images/',
+                        dest: '<%= globalConfig.build %>/images/',
                         ext: '.jpg'
                     }
                 ]
@@ -47,10 +54,10 @@ module.exports = function(grunt) {
         compress: {
           main: {
             options: {
-              archive: 'dist/<%= _.slugify(projectName) %>-build_'+grunt.template.today('ddmmHHMM')+'.zip'
+              archive: 'dist/<%= pkg.name %>-build_'+grunt.template.today('ddmmHHMM')+'.zip'
             },
             files: [
-                {expand: true, cwd: './build/source/', src: ['**'], dest: '<%= _.slugify(projectName) %>/'}, // makes all src relative to cwd
+                {expand: true, cwd: '<%= globalConfig.build %>', src: ['**'], dest: '<%= pkg.name %>/'}, // makes all src relative to cwd
             ]
           }
         },
@@ -59,30 +66,28 @@ module.exports = function(grunt) {
                 options: {
                 },
                 files: {
-                    './source/index-inline.html': './source/index.html'
+                    '<%= globalConfig.source %>/index-inline.html': '<%= globalConfig.source %>/index.html'
                 }
             }
         },
         watch: {
-            files: ['./source/index.html'],
+            files: ['<%= globalConfig.source %>/index.html'],
             tasks: ['inlinecss'],
         },
         'string-replace': {
             dist: {
                 files: {
-                  './source/index-inline.html': './source/index-inline.html'
+                  '<%= globalConfig.source %>/index-inline.html': '<%= globalConfig.source %>/index-inline.html'
                 },
                 options: {
                   replacements: [{
-                    pattern: 'http://projects.loadedcommunications.com.au/<%= _.slugify(projectName) %>/',
+                    pattern: 'http://projects.loadedcommunications.com.au/<%= pkg.name %>',
                     replacement: ''
                   }]
                 }
             }               
         }
-
     });
-
 
     grunt.event.on('watch', function(action, filepath, target) {
         grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
@@ -98,5 +103,5 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['inlinecss','watch']);
 
     // Build for delivery
-    grunt.registerTask('build', ['clean','inlinecss', 'string-replace', 'copy', 'imagemin', 'compress']);
+    grunt.registerTask('build', ['clean','inlinecss', 'string-replace', 'copy', 'imagemin', 'compress']);    
 };
