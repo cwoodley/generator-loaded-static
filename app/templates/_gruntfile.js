@@ -16,7 +16,7 @@ module.exports = function(grunt) {
             main: {
                 files: [{
                     expand: true,
-                    src: ['<%= globalConfig.source %>/**','!source/index.html'],
+                    src: ['<%= globalConfig.source %>/**','!<%= globalConfig.source %>/index.html'],
                     dest: 'build/'
                 }]
             },
@@ -81,7 +81,7 @@ module.exports = function(grunt) {
                 },
                 options: {
                   replacements: [{
-                    pattern: 'http://projects.loadedcommunications.com.au/<%= pkg.name %>',
+                    pattern: 'http://projects.loadedcommunications.com.au/<%= pkg.name %>/',
                     replacement: ''
                   }]
                 }
@@ -101,6 +101,9 @@ module.exports = function(grunt) {
 
     // Default task.
     grunt.registerTask('default', ['inlinecss','watch']);
+
+    // Build for checking
+    grunt.registerTask('nozip', ['clean','inlinecss', 'string-replace', 'copy', 'imagemin']);    
 
     // Build for delivery
     grunt.registerTask('build', ['clean','inlinecss', 'string-replace', 'copy', 'imagemin', 'compress']);    

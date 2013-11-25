@@ -1,45 +1,47 @@
-# generator-loaded-edm [![Build Status](https://secure.travis-ci.org/cwoodley/generator-loaded-edm.png?branch=master)](https://travis-ci.org/cwoodley/generator-loaded-edm)
+# generator-loaded-edm
+A generator for [Yeoman](http://yeoman.io) to bootstrap a new EDM/Email Newsletter project.
 
-A generator for [Yeoman](http://yeoman.io).
 
+## Requirements
 
-## Getting Started
+- Node.js
+- NPM
+- Yeoman
 
-### What is Yeoman?
+## Installation
 
-Trick question. It's not a thing. It's this guy:
-
-![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
-
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
-
+1. Download or clone the generator from the [bitbucket repository](https://bitbucket.org/loadedcom/generator-loaded-edm/):  
 ```
-$ npm install -g yo
+	https://bitbucket.org/loadedcom/generator-loaded-edm/get/master.zip
 ```
 
-### Yeoman Generators
+2. Move the extracted directory to any location for safekeeping, then ` cd ` to it.
+ 
+3. Run ` npm link `
 
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
+4. Create a new directory for your project, anywhere on your system e.g  
+	```
+	mkdir myProject && cd myProject
+	```
+5. Run the generator: ` yo loaded-edm `
 
-To install generator-loaded-edm from npm, run:
 
-```
-$ npm install -g generator-loaded-edm
-```
+## Usage
 
-Finally, initiate the generator:
+Run ` grunt watch ` while working on your project. Every time you save **index.html**, a copy will be made with all your CSS styles placed inline called **index-inline.html**
 
-```
-$ yo loaded-edm
-```
+Run ` grunt build ` to create a deliverable archive of the project **OR** ` grunt nozip ` to run the build process WITHOUT creating a zip file (useful for checking etc)
 
-### Getting To Know Yeoman
+### Other Grunt Tasks
 
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
+` clean ` - Create a new, empty **build/** directory  
+` copy ` - Copy necessary project files to **build/**  
+` imagemin ` - Create compressed copies of image files to **build/**.  
+` compress ` - Create a named & versioned zip file of the contents of build inside **dist/** directory e.g projectname-build_ddmmHHMM.zip  
+` inlinecss ` - Create **index-inline.html** with inlined CSS.  
+` string-replace ` - Find absolute to links to Loaded's project server, and replaces them with relative links
 
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
+
 
 
 ## License
