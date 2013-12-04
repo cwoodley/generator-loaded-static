@@ -4,6 +4,7 @@ var path = require('path');
 var yeoman = require('yeoman-generator');
 var exec = require('child_process').exec;
 var chalk   = require('chalk');
+var slugify   = require('slugify');
 
 var LoadedStaticGenerator = module.exports = function LoadedStaticGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -17,7 +18,7 @@ var LoadedStaticGenerator = module.exports = function LoadedStaticGenerator(args
 
 util.inherits(LoadedStaticGenerator, yeoman.generators.Base);
 
-LoadedWpThemeGenerator.prototype.initGenerator = function () {
+LoadedStaticGenerator.prototype.initGenerator = function () {
   this.log([
 chalk.yellow('      :::        ::::::::       :::      :::::::::   ::::::::::  :::::::::'),
 chalk.yellow('     :+:       :+:    :+:    :+: :+:    :+:    :+:  :+:         :+:    :+:'),
@@ -57,29 +58,12 @@ LoadedStaticGenerator.prototype.askFor = function askFor() {
     type: 'confirm',
     name: 'createGit',
     message: 'Would you like to initialise this as a git repository?',
-    default: false
+    default: true
   }, {
     type: 'confirm',
     name: 'installCSS',
     message: 'Would you like to install a CSS framework?',
     default: true
-  },{
-      type: 'list',
-      name: 'whichCSS',
-      message: 'Which CSS framework would you like to start with?',
-      choices: [
-        {
-          name: "Bourbon + Neat",
-          value: "bourbon_neat"
-        },
-        {
-          name: "Bourbon",
-          value: "bourbon"
-        }
-      ],
-      when: function (props) {
-        return props.installCSS;
-      }
   }, {
     name: 'devBrowser',
     type: 'list',
@@ -101,23 +85,10 @@ LoadedStaticGenerator.prototype.askFor = function askFor() {
     this.createGit = props.createGit;
     this.installCSS = props.installCSS;
     this.devBrowser = props.devBrowser;
-    this.whichCSS = getFrameworkChoice(props);
 
     cb();
   }.bind(this));
 };
-
-function getFrameworkChoice(props) {
-  var choices = props.whichCSS;
-
-  if(choices.indexOf('bourbon') !== -1) {
-    return 'bourbon';
-  }
-  
-  if(choices.indexOf('bourbon_neat') !== -1) {
-    return 'bourbon_neat';
-  }
-}
 
 LoadedStaticGenerator.prototype.app = function app() {
     var cb   = this.async()
@@ -133,22 +104,25 @@ LoadedStaticGenerator.prototype.app = function app() {
   this.mkdir('source/assets/javascripts/');
   this.mkdir('source/assets/vendor/');
 
-
+  this.copy('javascripts/presentation.js','./source/assets/javascripts/presentation.js');
+  this.copy('stylesheets/sass/styles.scss','./source/assets/stylesheets/sass/'+ slugify(this.projectName) +'.sass');
   this.copy('gitignore', '.gitignore');
-  this.copy('404.html', '/source/404.html');
+  this.copy('404.html', './source/404.html');
   this.template('_package.json', 'package.json');
   this.template('_gruntfile.js', 'Gruntfile.js');
   this.template('_index.html', './source/index.html');
-
-  this.log.info("Files copied!");
 
   cb();
 };
 
 LoadedStaticGenerator.prototype.git = function git() {
+var cb   = this.async(), self = this;
+
   if (this.createGit) {
+    this.log.writeln(chalk.cyan('=> ') + chalk.white('Initialising Git repository.'));
     exec('git init && git add . && git commit -am "initial commit"', function (error, stdout, stderr) {
       if (error) {
+        self.log.writeln(chalk.red('=> Git Initialisation Error!'));
         console.log(error.stack);
         console.log('Error code: '+error.code);
         console.log('Signal received: '+error.signal);
@@ -156,31 +130,11 @@ LoadedStaticGenerator.prototype.git = function git() {
     });
     
     self.log.ok("Git repo initialized.");
-
+    cb();
   }
 }
 
 LoadedStaticGenerator.prototype.installCssFrameworks = function installCssFrameworks() {
-  if(this.frameworkSelected == 'bourbon') {
-    var cb   = this.async(), self = this;
-
-    this.log.writeln(chalk.cyan('=> ') + chalk.white("Installing Bourbon"));
-
-    var child = exec('bourbon install --path source/assets/stylesheets/sass/',
-      function (error, stdout, stderr) {
-        if (error) {
-          self.log.writeln(chalk.red('=> Installation Error!'));
-          console.log(error.stack);
-          console.log('Error code: '+error.code);
-          console.log('Signal received: '+error.signal);
-        } else {
-          self.log.ok("Bourbon installed");
-          cb();
-        }
-      }
-    );
-  }
-  if(this.frameworkSelected == 'bourbon_neat') {
     var cb   = this.async(), self = this;
 
     this.log.writeln(chalk.cyan('=> ') + chalk.white("Installing Bourbon & Neat"));
@@ -197,14 +151,12 @@ LoadedStaticGenerator.prototype.installCssFrameworks = function installCssFramew
           cb();
         }
       });
-
-  }  
 }
 
 LoadedStaticGenerator.prototype.donezo = function donezo() {
-  this.log(chalk.bold.green('\n------------------------\n\n\nAll Done!!\n'), {logPrefix: ''});
-  this.log(chalk.bold("Local:")+"       "+chalk.underline("http://localhost/" + this.themeName));
-  this.log(chalk.bold("Projects:")+"    "+chalk.underline("http://projects.loadedcommunications.com.au/" + this.themeName));
+  this.log(chalk.bold.green('\n\n------------------------\n\n\nAll Done!!\n'), {logPrefix: ''});
+  this.log(chalk.bold("Local:")+"       "+chalk.underline("http://localhost/" + slugify(this.projectName) + "/source/"));
+  this.log(chalk.bold("Projects:")+"    "+chalk.underline("http://projects.loadedcommunications.com.au/" + slugify(this.projectName) + "/source/"));
 };
 
 // LoadedStaticGenerator.prototype.projectfiles = function projectfiles() {
