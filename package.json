@@ -1,21 +1,18 @@
 {
-  "name": "generator-loaded-edm",
-  "version": "0.0.0",
+  "name": "generator-loaded-static",
+  "version": "0.1.1",
   "description": "A generator for Yeoman",
   "keywords": [
     "yeoman-generator"
   ],
-  "homepage": "https://github.com/cwoodley/generator-loaded-edm",
-  "bugs": "https://github.com/cwoodley/generator-loaded-edm/issues",
   "author": {
     "name": "Cale Woodley",
-    "email": "cale@cobalt343.com",
-    "url": "https://github.com/cwoodley"
+    "email": "cale@loadedcommunications.com.au"
   },
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/cwoodley/generator-loaded-edm.git"
+    "url": "git@bitbucket.org:loadedcom/generator-loaded-static.git"
   },
   "scripts": {
     "test": "mocha"

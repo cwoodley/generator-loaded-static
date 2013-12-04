@@ -3,15 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib": "~0.8.0",
-    "grunt-contrib-copy": "~0.4.1",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-compress": "~0.5.2",
-    "grunt-contrib-imagemin": "~0.3.0",
-    "grunt-inline-css": "~0.1.4",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-string-replace": "~0.2.7"
+    "grunt": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-clean": "latest",
+    "grunt-contrib-compress": "latest",
+    "grunt-contrib-imagemin": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-open": "latest",
+    "grunt-express": "~1.0.0-beta2",
+    "matchdep": "~0.1.2"
   },
   "author": "Loaded Communications"
 }
