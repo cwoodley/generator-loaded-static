@@ -40,6 +40,8 @@ Run ` grunt build ` to create a deliverable archive of the project **OR** ` grun
 ` compress ` - Create a named & versioned zip file of the contents of build inside **dist/** directory e.g projectname-build_ddmmHHMM.zip  
 
 
+## TODO items
+* Add _components.scss, _variables.scss, _utilities.scss
 
 
 ## License
