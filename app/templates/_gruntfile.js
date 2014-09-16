@@ -28,7 +28,7 @@ module.exports = function(grunt) {
 						style: 'compressed'
 					},
 					files: {
-						'<%= globalConfig.assets %>/stylesheets/css/<%%=pkg.name %>.css': '<%= globalConfig.assets %>/stylesheets/sass/<%%=pkg.name %>.scss'
+						'<%%= globalConfig.assets %>/stylesheets/css/<%%=pkg.name %>.css': '<%%= globalConfig.assets %>/stylesheets/sass/<%%=pkg.name %>.scss'
 					}
 				},
 				dev: {
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
 						lineNumbers: true,
 					},
 					files: {
-						'<%= globalConfig.assets %>/stylesheets/css/<%%=pkg.name %>.css': '<%= globalConfig.assets %>/stylesheets/sass/<%%=pkg.name %>.scss'
+						'<%%= globalConfig.assets %>/stylesheets/css/<%%=pkg.name %>.css': '<%%= globalConfig.assets %>/stylesheets/sass/<%%=pkg.name %>.scss'
 					}
 				}
 			},    
@@ -60,7 +60,7 @@ module.exports = function(grunt) {
 					}
 				},
 				css: {
-					files: ['<%= globalConfig.assets %>/stylesheets/sass/*.scss'],
+					files: ['<%%=globalConfig.assets %>/stylesheets/sass/*.scss'],
 					tasks: ['sass:dev'],
 					options: {
 						livereload: true,
@@ -71,7 +71,7 @@ module.exports = function(grunt) {
 			// open your browser at the project's URL
 			open: {
 				all: {
-					path: 'http://localhost:<%%= express.all.options.port%>'
+					path: 'http://localhost:<%%= express.all.options.port%>',
 					app: "<%= devBrowser %>"
 				}
 			},   
@@ -87,10 +87,10 @@ module.exports = function(grunt) {
 					files: [{
 						expand: true,
 						src: [
-							'<%= globalConfig.source %>/**',
-							'!<%=globalConfig.assets %>/stylesheets/sass/**',
-							'!<%=globalConfig.assets %>/images/sprites/**',
-							'!<%=globalConfig.assets %>/vendor/*.js',
+							'<%%= globalConfig.source %>/**',
+							'!<%%=globalConfig.assets %>/stylesheets/sass/**',
+							'!<%%=globalConfig.assets %>/images/sprites/**',
+							'!<%%=globalConfig.assets %>/vendor/*.js',
 						],
 						dest: 'build/'
 					}]
@@ -114,9 +114,9 @@ module.exports = function(grunt) {
 					files: [
 						{
 							expand: true,
-							cwd: '<%=globalConfig.assets %>/images/',
+							cwd: '<%%=globalConfig.assets %>/images/',
 							src: ['**/*.png'],
-							dest: '<%= globalConfig.assets %>/images/',
+							dest: '<%%=globalConfig.assets %>/images/',
 							ext: '.png'
 						}
 					]
@@ -128,9 +128,9 @@ module.exports = function(grunt) {
 					files: [
 						{
 							expand: true,
-							cwd: '<%= globalConfig.assets %>/images/',
+							cwd: '<%%=globalConfig.assets %>/images/',
 							src: ['**/*.jpg', '!**/sprites/**'],
-							dest: '<%= globalConfig.build %>/assets/images/',
+							dest: '<%%= globalConfig.build %>/assets/images/',
 							ext: '.jpg'
 						}
 					]
@@ -143,9 +143,9 @@ module.exports = function(grunt) {
 							separator: ';'
 					},
 					src: [
-							'<%=globalConfig.assets %>/vendor/*.js'
+							'<%%=globalConfig.assets %>/vendor/*.js'
 					],
-					dest: '<%= globalConfig.assets %>/javascripts/<%= pkg.name %>.vendor.min.js'
+					dest: '<%%=globalConfig.assets %>/javascripts/<%%= pkg.name %>.vendor.min.js'
 				},
 			},
 			// compress merged vendor scripts file
@@ -155,7 +155,7 @@ module.exports = function(grunt) {
 				},
 				js: {
 					files: {
-					'<%= globalConfig.assets %>/javascripts/<%= pkg.name %>.vendor.min.js': ['<%= globalConfig.assets %>/javascripts/<%= pkg.name %>.vendor.min.js']
+					'<%%=globalConfig.assets %>/javascripts/<%%= pkg.name %>.vendor.min.js': ['<%%=globalConfig.assets %>/javascripts/<%%= pkg.name %>.vendor.min.js']
 					}
 				}
 			},
@@ -163,14 +163,14 @@ module.exports = function(grunt) {
 			compress: {
 				main: {
 					options: {
-						archive: 'dist/<%=pkg.name %>-build_'+grunt.template.today('ddmmHHMM')+'.zip'
+						archive: 'dist/<%%=pkg.name %>-build_'+grunt.template.today('ddmmHHMM')+'.zip'
 					},
 					files: [
 						{
 							expand: true,
-							cwd: '<%= globalConfig.build %>',
+							cwd: '<%%= globalConfig.build %>',
 							src: ['**'],
-							dest: '<%= pkg.name %>/'
+							dest: '<%%= pkg.name %>/'
 						} // makes all src relative to cwd
 					]
 				}
@@ -182,9 +182,9 @@ module.exports = function(grunt) {
 						'imagemagick': true
 					},	      
 					algorithm: 'alt-diagonal',
-					src: '<%= globalConfig.assets %>/images/sprites/*.png',
-					destImg: '<%= globalConfig.assets %>/images/spritesheet.png',
-					destCSS: '<%= globalConfig.assets %>/stylesheets/sass/_spritesheet.scss',
+					src: '<%%=globalConfig.assets %>/images/sprites/*.png',
+					destImg: '<%%=globalConfig.assets %>/images/spritesheet.png',
+					destCSS: '<%%=globalConfig.assets %>/stylesheets/sass/_spritesheet.scss',
 					cssOpts: {
 						// Some templates allow for skipping of function declarations
 						functions: true,
@@ -199,7 +199,7 @@ module.exports = function(grunt) {
 			processhtml: {
 				dist: {
 					files: {
-						'<%= globalConfig.build %>/index.html': ['<%= globalConfig.source %>/index.html']
+						'<%%= globalConfig.build %>/index.html': ['<%%= globalConfig.source %>/index.html']
 					}
 				}
 			}	 			    

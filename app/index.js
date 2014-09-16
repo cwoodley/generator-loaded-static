@@ -5,6 +5,11 @@ var yeoman = require('yeoman-generator');
 var exec = require('child_process').exec;
 var chalk   = require('chalk');
 var slugify   = require('slugify');
+    var globalConfig = {
+        source: './source',
+        build: './build/source',
+        assets: './source/assets'
+    };
 
 var LoadedStaticGenerator = module.exports = function LoadedStaticGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -105,7 +110,7 @@ LoadedStaticGenerator.prototype.app = function app() {
   this.mkdir('source/assets/vendor/');
 
   this.copy('javascripts/presentation.js','./source/assets/javascripts/presentation.js');
-  this.copy('stylesheets/sass/styles.scss','./source/assets/stylesheets/sass/'+ slugify(this.projectName) +'.sass');
+  this.copy('stylesheets/sass/styles.scss','./source/assets/stylesheets/sass/'+ slugify(this.projectName) +'.scss');
   this.copy('gitignore', '.gitignore');
   this.copy('404.html', './source/404.html');
   this.template('_package.json', 'package.json');
@@ -139,7 +144,7 @@ LoadedStaticGenerator.prototype.installCssFrameworks = function installCssFramew
 
     this.log.writeln(chalk.cyan('=> ') + chalk.white("Installing Bourbon & Neat"));
 
-      var child = exec('bourbon install --path source/assets/stylesheets/sass/ && cd source/assets/stylesheets/sass/ && neat install',
+      var child = exec('bourbon install --path ./source/assets/stylesheets/sass/ && cd ./source/assets/stylesheets/sass/ && neat install',
       function (error, stdout, stderr) {
         if (error) {
           self.log.writeln(chalk.red('=> Installation Error!'));
