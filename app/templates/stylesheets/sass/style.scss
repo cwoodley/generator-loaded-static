@@ -1,0 +1,22 @@
+@import "bourbon/bourbon";
+@import "reset";
+@import "grid-settings";
+@import "neat/neat";
+
+// @import "fa/font-awesome";
+@import "utilities";
+@import "variables";
+@import "components";
+
+body {
+
+}
+
+a {
+  color:$primary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

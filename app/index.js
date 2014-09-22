@@ -88,7 +88,6 @@ LoadedStaticGenerator.prototype.askFor = function askFor() {
     this.projectName = props.projectName;
     this.authorEmail = props.authorEmail;
     this.createGit = props.createGit;
-    this.installCSS = props.installCSS;
     this.devBrowser = props.devBrowser;
 
     cb();
@@ -111,6 +110,13 @@ LoadedStaticGenerator.prototype.app = function app() {
 
   this.copy('javascripts/presentation.js','./source/assets/javascripts/presentation.js');
   this.copy('stylesheets/sass/styles.scss','./source/assets/stylesheets/sass/'+ slugify(this.projectName) +'.scss');
+  this.copy('stylesheets/sass/_components.scss','./source/assets/stylesheets/sass/_components.scss');
+  this.copy('stylesheets/sass/_grid-settings.scss','./source/assets/stylesheets/sass/_grid-settings.scss');
+  this.copy('stylesheets/sass/_reset.scss','./source/assets/stylesheets/sass/_reset.scss');
+  this.copy('stylesheets/sass/_text.scss','./source/assets/stylesheets/sass/_text.scss');
+  this.copy('stylesheets/sass/_utilities.scss','./source/assets/stylesheets/sass/_utilities.scss');
+  this.copy('stylesheets/sass/_variables.scss','./source/assets/stylesheets/sass/_variables.scss');
+
   this.copy('gitignore', '.gitignore');
   this.copy('404.html', './source/404.html');
   this.template('_package.json', 'package.json');
