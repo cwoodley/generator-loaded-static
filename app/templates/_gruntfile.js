@@ -63,7 +63,7 @@ module.exports = function(grunt) {
 					}
 			 	},
 		    bake: {
-		        files: [ "<%= globalConfig.source %>/includes/**" ],
+		        files: [ "<%%= globalConfig.source %>/includes/**" ],
 		        tasks: "bake:build"
 		    },
 				js: {
