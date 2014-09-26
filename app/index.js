@@ -106,7 +106,8 @@ LoadedStaticGenerator.prototype.app = function app() {
   this.mkdir('source/assets/stylesheets/sass/');
   this.mkdir('source/assets/stylesheets/css/');
   this.mkdir('source/assets/javascripts/');
-  this.mkdir('source/assets/vendor/');
+  this.mkdir('source/templates/');
+  this.mkdir('source/includes/');
 
   this.copy('javascripts/presentation.js','./source/assets/javascripts/presentation.js');
   this.copy('stylesheets/sass/styles.scss','./source/assets/stylesheets/sass/'+ slugify(this.projectName) +'.scss');

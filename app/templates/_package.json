@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "grunt": "latest",
+    "grunt-bake": "^0.3.12",
     "grunt-contrib-copy": "latest",
     "grunt-contrib-clean": "latest",
     "grunt-contrib-compress": "latest",

@@ -21,6 +21,17 @@ module.exports = function(grunt) {
 					}
 				}
 			},
+			bake: {
+		    build: {
+	        options: {
+            // Task-specific options go here.
+	        },
+	        files: {
+            // files go here, like so:
+            "source/index.html": "source/templates/_index.html",
+	        }
+		    },
+			},
 			// compile CSS from SCSS files
 			sass: {
 				dist: {
@@ -51,6 +62,10 @@ module.exports = function(grunt) {
 						spawn: false
 					}
 			 	},
+		    bake: {
+		        files: [ "<%= globalConfig.source %>/includes/**" ],
+		        tasks: "bake:build"
+		    },
 				js: {
 					files: ['<%%= globalConfig.assets %>/javascripts/*.js'],
 					tasks: ['concat:js'],
@@ -212,6 +227,7 @@ module.exports = function(grunt) {
 		// Creates the `server` task
 		grunt.registerTask('server', [
 			'express',
+			'bake:build',
 			'sass:dev',
 			'watch'
 		]);
@@ -220,7 +236,7 @@ module.exports = function(grunt) {
 		grunt.registerTask('default', ['server']);
 
 		// Build for checking
-		grunt.registerTask('nozip', ['clean','sass:dist','concat','uglify','copy','processhtml',]);    
+		grunt.registerTask('nozip', ['clean','bake:build','sass:dist','concat','uglify','copy','processhtml',]);    
 
 		// Build for delivery
 		grunt.registerTask('build', ['nozip','compress']);   
