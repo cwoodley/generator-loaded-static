@@ -110,11 +110,10 @@ LoadedStaticGenerator.prototype.app = function app() {
   this.mkdir('source/includes/');
 
   this.copy('javascripts/presentation.js','./source/assets/javascripts/presentation.js');
-  this.copy('stylesheets/sass/styles.scss','./source/assets/stylesheets/sass/'+ slugify(this.projectName) +'.scss');
+  this.copy('stylesheets/sass/style.scss','./source/assets/stylesheets/sass/'+ slugify(this.projectName) +'.scss');
   this.copy('stylesheets/sass/_components.scss','./source/assets/stylesheets/sass/_components.scss');
   this.copy('stylesheets/sass/_grid-settings.scss','./source/assets/stylesheets/sass/_grid-settings.scss');
   this.copy('stylesheets/sass/_reset.scss','./source/assets/stylesheets/sass/_reset.scss');
-  this.copy('stylesheets/sass/_text.scss','./source/assets/stylesheets/sass/_text.scss');
   this.copy('stylesheets/sass/_utilities.scss','./source/assets/stylesheets/sass/_utilities.scss');
   this.copy('stylesheets/sass/_variables.scss','./source/assets/stylesheets/sass/_variables.scss');
 
